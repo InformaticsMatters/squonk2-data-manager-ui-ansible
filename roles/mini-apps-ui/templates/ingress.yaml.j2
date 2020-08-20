@@ -20,7 +20,7 @@ spec:
   - host: {{ maui_hostname }}
     http:
       paths:
-      - path: /ui
+      - path: /{{ maui_hostname_path }}
         backend:
           serviceName: mini-apps-ui
           servicePort: http
