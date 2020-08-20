@@ -1,0 +1,14 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: mini-apps-ui
+  namespace: {{ maui_namespace }}
+roleRef:
+  kind: Role
+  name: mini-apps-ui-psp
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: website
+  namespace: {{ maui_namespace }}

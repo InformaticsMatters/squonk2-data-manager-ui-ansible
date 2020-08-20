@@ -1,0 +1,34 @@
+---
+
+# Create the namespace and other basic materials
+
+- name: Create namespace ({{ maui_namespace }})
+  k8s:
+    definition: "{{ lookup('template', 'namespace.yaml.j2') }}"
+    wait: yes
+
+- name: Create namespace material
+  k8s:
+    definition: "{{ lookup('template', '{{ item }}.yaml.j2') }}"
+    wait: yes
+  loop:
+  - serviceaccount
+  - role
+  - rolebinding-role-sa
+
+- name: Relax ({{ maui_namespace }} 'default' service account (for cert-manager)
+  k8s:
+    definition: "{{ lookup('template', 'rolebinding-default-sa.yaml.j2') }}"
+    wait: yes
+
+# Deploy the application...
+
+- name: Deploy application
+  k8s:
+    definition: "{{ lookup('template', '{{ item }}.yaml.j2') }}"
+    wait: yes
+    wait_timeout: "{{ pod_ready_timeout }}"
+  loop:
+  - statefulset
+  - service
+  - ingress

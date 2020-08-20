@@ -1,0 +1,83 @@
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mini-apps-ui
+  namespace: {{ maui_namespace }}
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      name: mini-apps-ui
+  serviceName: mini-apps-ui
+  template:
+    metadata:
+      name: mini-apps-ui
+      labels:
+        name: mini-apps-ui
+    spec:
+      serviceAccountName: mini-apps-ui
+
+      # A 'preferred' (not guaranteed)
+      # node selection affinity...
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: purpose
+                operator: In
+                values:
+                - {{ maui_node_purpose }}
+
+      containers:
+      - name: mini-apps-ui
+        image: {{ maui_image_name }}:{{ maui_image_tag }}
+{% if maui_image_tag in ['latest', 'stable'] %}
+        imagePullPolicy: Always
+{% else %}
+        imagePullPolicy: IfNotPresent
+{% endif %}
+        terminationMessagePolicy: FallbackToLogsOnError
+        ports:
+        - containerPort: 80
+          name: http
+        env:
+        # CICD_TRIGGER_ID is variable whose value is used to force
+        # a redeployment of the underlying containers. This is used in
+        # situations where the origin image's tag may not have changed
+        # (e.g. it's 'latest' or 'stable') but a new build is expected to
+        # be available. Without changing something in the Deployment spec
+        # a roll-out will not occur if the tag has not changed.
+        - name: CICD_TRIGGER_ID
+          value: '{{ ansible_date_time.iso8601_micro }}'
+        readinessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 6
+        livenessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 6
+        resources:
+          requests:
+            cpu: {{ maui_cpu_request }}
+            memory: {{ maui_mem_request }}
+{% if maui_cpu_limit or maui_mem_limit %}
+          limits:
+{% if maui_cpu_limit %}
+            cpu: {{ maui_cpu_limit }}
+{% endif %}
+{% if maui_mem_limit %}
+            memory: {{ maui_mem_limit }}
+{% endif %}
+{% endif %}

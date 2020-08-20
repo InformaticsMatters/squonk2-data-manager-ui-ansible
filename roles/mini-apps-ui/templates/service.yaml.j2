@@ -1,0 +1,13 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mini-apps-ui
+  namespace: {{ maui_namespace }}
+spec:
+  selector:
+    name: mini-apps-ui
+  ports:
+  - name: http
+    port: 80
+    targetPort: http

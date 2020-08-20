@@ -1,0 +1,25 @@
+---
+
+# Commonly adjusted application variables -
+# everything we expect the user to consider changing.
+# To avoid clutter, put less-common variables in 'vars/main.yaml'
+
+# Set to 'absent' to undeploy
+maui_state: present
+
+# The namespace to create for application deployment.
+maui_namespace: mini-apps-ui
+
+# Details of the application container image
+maui_image_name: informaticsmatters/mini-apps-data-tier-ui
+maui_image_tag: 'latest'
+
+# The ingress hostname (http/https assumed)
+maui_hostname: data.informaticsmatters.org
+# The ingress "let's Encrypt" certificate issuer.
+# One of 'production' or 'staging'
+maui_cert_issuer: production
+# And the maximum size of a body for an upload.
+# '0' implies unlimited, nginx default is typically 1m.
+# Part of the nginx ingress.
+maui_ingress_proxy_body_size: 100m
