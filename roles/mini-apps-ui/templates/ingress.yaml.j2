@@ -5,7 +5,8 @@ metadata:
   name: mini-apps-ui
   namespace: {{ maui_namespace }}
   annotations:
-    ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "letsencrypt-nginx-{{ maui_cert_issuer|lower }}"
     nginx.ingress.kubernetes.io/proxy-body-size: "{{ maui_ingress_proxy_body_size }}"
@@ -20,7 +21,7 @@ spec:
   - host: {{ maui_hostname }}
     http:
       paths:
-      - path: /{{ maui_hostname_path }}
+      - path: /{{ maui_hostname_path }}(/|$)(.*)
         backend:
           serviceName: mini-apps-ui
           servicePort: http
