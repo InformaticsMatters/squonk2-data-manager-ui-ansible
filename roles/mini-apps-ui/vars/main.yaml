@@ -11,13 +11,9 @@ maui_sa_psp: im-core-unrestricted
 # Requests are required but limits are not.
 # Set limit to blank ('') to avoid a limit.
 maui_cpu_request: 100m
-maui_cpu_limit: 1000m
+maui_cpu_limit: 500m
 maui_mem_request: 250Mi
 maui_mem_limit: 250Mi
-
-# A request for a suitable node, based on node labels.
-# Here we would like nodes labelled 'purpose=application'...
-maui_node_purpose: application
 
 # General variables
 
