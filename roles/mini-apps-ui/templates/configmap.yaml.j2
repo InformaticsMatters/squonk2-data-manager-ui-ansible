@@ -1,0 +1,11 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ui
+  namespace: {{ maui_namespace }}
+data:
+  config.json: |
+    {
+      "DATA_TIER_SERVER": "https://{{ maui_data_tier_url }}"
+    }

@@ -24,3 +24,6 @@ maui_cert_issuer: production
 # '0' implies unlimited, nginx default is typically 1m.
 # Part of the nginx ingress.
 maui_ingress_proxy_body_size: 100m
+
+# The Data Tier URL (https:// assumed)
+maui_data_tier_url: squonk.it/data

@@ -50,6 +50,11 @@ spec:
         ports:
         - containerPort: 80
           name: http
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html/config.json
+          name: config-ui
+          subPath: config.json
+          readOnly: true
         env:
         # CICD_TRIGGER_ID is variable whose value is used to force
         # a redeployment of the underlying containers. This is used in
@@ -88,3 +93,8 @@ spec:
             memory: {{ maui_mem_limit }}
 {% endif %}
 {% endif %}
+
+      volumes:
+      - name: config-ui
+        configMap:
+          name: ui
