@@ -7,8 +7,7 @@ yaml-files:
 
 ignore: |
   .github/
-  roles/mini-apps-ui/templates/deployment.yaml.j2
-  roles/mini-apps-ui/templates/job.yaml.j2
+  roles/mini-apps-ui/templates/serviceaccount.yaml.j2
   roles/mini-apps-ui/templates/statefulset.yaml.j2
 
 rules:
