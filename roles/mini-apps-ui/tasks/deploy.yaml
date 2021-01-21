@@ -7,6 +7,15 @@
     definition: "{{ lookup('template', 'namespace.yaml.j2') }}"
     wait: yes
 
+- name: Create DockerHub image pull secret
+  k8s:
+    definition: "{{ lookup('template', 'secret-dh-imagepull.yaml.j2') }}"
+    wait: yes
+  vars:
+    pull_namespace: "{{ maui_namespace }}"
+    pull_secret: "{{ maui_dockerhub_pullsecret }}"
+  when: maui_dockerhub_pullsecret|string|length > 0
+
 - name: Create namespace material
   k8s:
     definition: "{{ lookup('template', '{{ item }}.yaml.j2') }}"

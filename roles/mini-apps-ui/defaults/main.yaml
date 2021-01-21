@@ -27,3 +27,10 @@ maui_ingress_proxy_body_size: 100m
 
 # The Data Tier URL (https:// assumed)
 maui_data_tier_url: squonk.it/data
+
+# A pull-secret for public images pulled from DockerHub.
+# If set this is the base-64 string that can be used as the value
+# in our Kubernetes Secret as the .dockerconfigjson value.
+# If set it is applied to the ServiceAccount in the namespace
+# and applied to Pods that use that namespace.
+maui_dockerhub_pullsecret: ''
