@@ -8,7 +8,7 @@
 maui_state: present
 
 # The namespace to create for application deployment.
-maui_namespace: mini-apps-ui
+maui_namespace: data-manager-ui
 
 # Details of the application container image
 maui_image_name: informaticsmatters/mini-apps-data-tier-ui
