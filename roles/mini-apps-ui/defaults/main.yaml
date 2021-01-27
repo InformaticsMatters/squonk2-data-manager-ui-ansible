@@ -10,6 +10,10 @@ maui_state: present
 # The namespace to create for application deployment.
 maui_namespace: data-manager-ui
 
+# Realm
+maui_realm: squonk
+maui_keycloak_client_id: data-manager-ui
+
 # Details of the application container image
 maui_image_name: informaticsmatters/mini-apps-data-tier-ui
 maui_image_tag: 'latest'
@@ -34,3 +38,8 @@ maui_data_manager_api_address: squonk.it/data-manager-api
 # If set it is applied to the ServiceAccount in the namespace
 # and applied to Pods that use that namespace.
 maui_dockerhub_pullsecret: ''
+
+# Provided by our chosen AWX/Tower Keycloak credentials
+# (keycloak credential type)...
+
+keycloak_server_url: "{{ lookup('env', 'KEYCLOAK_SERVER_URL') }}"

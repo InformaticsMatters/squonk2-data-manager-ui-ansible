@@ -55,6 +55,10 @@ spec:
           name: config-ui
           subPath: config.json
           readOnly: true
+        - mountPath: /usr/share/nginx/html/keycloak.json
+          name: config-ui
+          subPath: keycloak.json
+          readOnly: true
         env:
         # CICD_TRIGGER_ID is variable whose value is used to force
         # a redeployment of the underlying containers. This is used in

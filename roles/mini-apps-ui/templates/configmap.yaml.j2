@@ -9,3 +9,13 @@ data:
     {
       "DATA_MANAGER_API_SERVER": "https://{{ maui_data_manager_api_address }}"
     }
+
+  keycloak.json: |
+    {
+      "realm": "{{ maui_realm }}",
+      "auth-server-url": "{{ keycloak_server_url }}",
+      "ssl-required": "external",
+      "resource": "{{ maui_keycloak_client_id }}",
+      "public-client": true,
+      "confidential-port": 0
+    }
