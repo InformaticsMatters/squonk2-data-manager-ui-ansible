@@ -26,7 +26,7 @@ maui_cert_issuer: production
 maui_ingress_proxy_body_size: 100m
 
 # The Data Tier URL (https:// assumed)
-maui_data_tier_url: squonk.it/data
+maui_data_manager_api_address: squonk.it/data-manager-api
 
 # A pull-secret for public images pulled from DockerHub.
 # If set this is the base-64 string that can be used as the value
