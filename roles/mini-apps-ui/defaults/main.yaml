@@ -16,7 +16,7 @@ maui_image_tag: 'latest'
 
 # The ingress hostname (http/https assumed) and path
 maui_hostname: squonk.it
-maui_hostname_path: data-ui
+maui_hostname_path: data-manager-ui
 # The ingress "let's Encrypt" certificate issuer.
 # One of 'production' or 'staging'
 maui_cert_issuer: production
