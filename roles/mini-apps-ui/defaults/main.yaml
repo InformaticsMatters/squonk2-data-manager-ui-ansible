@@ -47,4 +47,3 @@ maui_dockerhub_pullsecret: ''
 # (keycloak credential type)...
 
 keycloak_server_url: "{{ lookup('env', 'KEYCLOAK_SERVER_URL') }}"
-
