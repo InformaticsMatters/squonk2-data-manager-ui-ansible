@@ -49,9 +49,9 @@ spec:
         - containerPort: 3000
           name: http
         volumeMounts:
-        - mountPath: /app/.env
+        - mountPath: /app/.env.production
           name: config-ui
-          subPath: .env
+          subPath: .env.production
           readOnly: true
         env:
         # CICD_TRIGGER_ID is variable whose value is used to force
