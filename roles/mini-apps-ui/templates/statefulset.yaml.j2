@@ -62,22 +62,22 @@ spec:
         # a roll-out will not occur if the tag has not changed.
         - name: CICD_TRIGGER_ID
           value: '{{ ansible_date_time.iso8601_micro }}'
-        readinessProbe:
-          tcpSocket:
-            port: 3000
-          initialDelaySeconds: 5
-          timeoutSeconds: 3
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 6
-        livenessProbe:
-          tcpSocket:
-            port: 3000
-          initialDelaySeconds: 5
-          timeoutSeconds: 3
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 6
+#        readinessProbe:
+#          tcpSocket:
+#            port: 3000
+#          initialDelaySeconds: 5
+#          timeoutSeconds: 3
+#          periodSeconds: 10
+#          successThreshold: 1
+#          failureThreshold: 6
+#        livenessProbe:
+#          tcpSocket:
+#            port: 3000
+#          initialDelaySeconds: 5
+#          timeoutSeconds: 3
+#          periodSeconds: 10
+#          successThreshold: 1
+#          failureThreshold: 6
         resources:
           requests:
             cpu: {{ maui_cpu_request }}
