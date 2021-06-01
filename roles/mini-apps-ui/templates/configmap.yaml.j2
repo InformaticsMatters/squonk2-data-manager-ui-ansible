@@ -5,17 +5,19 @@ metadata:
   name: ui
   namespace: {{ maui_namespace }}
 data:
-  config.json: |
-    {
-      "DATA_MANAGER_API_SERVER": "https://{{ maui_data_manager_api_address }}"
-    }
+  .env: |
+    BASE_URL='https://{{ maui_hostname }}'
+    BASE_PATH='/{{ maui_hostname_path }}'
 
-  keycloak.json: |
-    {
-      "realm": "{{ maui_realm }}",
-      "auth-server-url": "{{ keycloak_server_url }}",
-      "ssl-required": "external",
-      "resource": "{{ maui_keycloak_client_id }}",
-      "public-client": true,
-      "confidential-port": 0
-    }
+    URL=$BASE_URL$BASE_PATH
+
+    DATA_MANAGER_API_SERVER='https://{{ maui_data_manager_api_address }}'
+
+    NEXT_PUBLIC_AUTH0_PROFILE=$URL/api/auth/me
+    NEXT_PUBLIC_BASE_PATH=$BASE_PATH
+
+    AUTH0_SECRET='{{ maui_auth0_secret }}'
+
+    KEYCLOAK_URL='{{ keycloak_server_url }}'
+    KEYCLOAK_CLIENT_ID='{{ maui_keycloak_client_id }}'
+    KEYCLOAK_CLIENT_SECRET='{{ maui_keycloak_client_secret }}'

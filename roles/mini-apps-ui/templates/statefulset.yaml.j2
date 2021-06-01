@@ -18,25 +18,23 @@ spec:
     spec:
       serviceAccountName: mini-apps-ui
 
-      # Avoid 'worker' nodes
-      # and prefer 'application' nodes
+      # Try to avoid 'worker' nodes (lower weight),
+      # instead preferring 'application' nodes (higher weight)
+      # falling back on anything else (like 'core') if there's still not room.
       affinity:
         nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: informaticsmatters.com/purpose
-                operator: NotIn
-                values:
-                - worker
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 1
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: informaticsmatters.com/purpose-worker
+                operator: Exists
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 10
             preference:
               matchExpressions:
-              - key: informaticsmatters.com/purpose
-                operator: In
-                values:
-                - application
+              - key: informaticsmatters.com/purpose-application
+                operator: Exists
 
       containers:
       - name: mini-apps-ui
@@ -48,16 +46,12 @@ spec:
 {% endif %}
         terminationMessagePolicy: FallbackToLogsOnError
         ports:
-        - containerPort: 80
+        - containerPort: 3000
           name: http
         volumeMounts:
-        - mountPath: /usr/share/nginx/html/config.json
+        - mountPath: /app/.env
           name: config-ui
-          subPath: config.json
-          readOnly: true
-        - mountPath: /usr/share/nginx/html/keycloak.json
-          name: config-ui
-          subPath: keycloak.json
+          subPath: .env
           readOnly: true
         env:
         # CICD_TRIGGER_ID is variable whose value is used to force
@@ -70,7 +64,7 @@ spec:
           value: '{{ ansible_date_time.iso8601_micro }}'
         readinessProbe:
           tcpSocket:
-            port: 80
+            port: 3000
           initialDelaySeconds: 5
           timeoutSeconds: 3
           periodSeconds: 10
@@ -78,7 +72,7 @@ spec:
           failureThreshold: 6
         livenessProbe:
           tcpSocket:
-            port: 80
+            port: 3000
           initialDelaySeconds: 5
           timeoutSeconds: 3
           periodSeconds: 10

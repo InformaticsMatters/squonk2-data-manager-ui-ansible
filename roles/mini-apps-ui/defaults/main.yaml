@@ -13,6 +13,10 @@ maui_namespace: data-manager-ui
 # Realm
 maui_realm: squonk
 maui_keycloak_client_id: data-manager-ui
+maui_keycloak_client_secret: SetMe
+# The application auth0 secret.
+# Basically a 32-character heck string.
+maui_auth0_secret: "{{ lookup('password', '/dev/null length=32 chars=hexdigits') }}"
 
 # Details of the application container image
 maui_image_name: informaticsmatters/mini-apps-data-tier-ui
@@ -39,7 +43,7 @@ maui_data_manager_api_address: squonk.it/data-manager-api
 # and applied to Pods that use that namespace.
 maui_dockerhub_pullsecret: ''
 
-# Provided by our chosen AWX/Tower Keycloak credentials
+## Provided by our chosen AWX/Tower Keycloak credentials
 # (keycloak credential type)...
 
 keycloak_server_url: "{{ lookup('env', 'KEYCLOAK_SERVER_URL') }}"
