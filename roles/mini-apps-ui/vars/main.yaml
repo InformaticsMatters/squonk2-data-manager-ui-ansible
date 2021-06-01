@@ -10,10 +10,10 @@ maui_sa_psp: im-core-unrestricted
 # Application CPU and Memory requests and limits.
 # Requests are required but limits are not.
 # Set limit to blank ('') to avoid a limit.
-maui_cpu_request: 100m
-maui_cpu_limit: 500m
+maui_cpu_request: 500m
+maui_cpu_limit: 1
 maui_mem_request: 250Mi
-maui_mem_limit: 250Mi
+maui_mem_limit: 2Gi
 
 # General variables
 
