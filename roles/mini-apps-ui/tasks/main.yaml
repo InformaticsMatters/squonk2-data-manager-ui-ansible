@@ -3,7 +3,7 @@
 - include_tasks: prep.yaml
 
 # A kubernetes host and an API key must be set.
-# Either environment variables wil have been set by the user
+# Either environment variables will have been set by the user
 # or AWX 'kubernetes' credentials will have injected them.
 # Either way the variables 'k8s_auth_host' and
 # 'k8s_auth_api_key' must have been set.
@@ -12,10 +12,12 @@
     that:
     - k8s_auth_host|length > 0
     - k8s_auth_api_key|length > 0
+  when: maui_kubeconfig|string|length == 0
 
 # Go...
 
-- block:
+- name: Deploy via Host and API
+  block:
 
   - include_tasks: deploy.yaml
     when: maui_state|string == 'present'
@@ -26,3 +28,19 @@
     group/k8s:
       host: "{{ k8s_auth_host }}"
       api_key: "{{ k8s_auth_api_key }}"
+  when: maui_kubeconfig|string|length == 0
+
+# ...using a (local) kubernetes config file...
+
+- name: Deploy via Kubernetes config
+  block:
+
+  - include_tasks: deploy.yaml
+    when: maui_state|string == 'present'
+  - include_tasks: undeploy.yaml
+    when: maui_state|string == 'absent'
+
+  module_defaults:
+    group/k8s:
+      kubeconfig: "{{ maui_kubeconfig }}"
+  when: maui_kubeconfig|string|length != 0

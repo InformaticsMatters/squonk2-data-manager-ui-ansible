@@ -1,0 +1,9 @@
+---
+maui_namespace: data-manager-ui
+maui_keycloak_client_id: data-manager-api-minikube
+maui_image_tag: docker-desktop
+maui_hostname: kubernetes.docker.internal
+maui_data_manager_api_address: kubernetes.docker.internal/data-manager-api
+maui_keycloak_client_secret:
+
+maui_kubeconfig: ~/k8s-config/config-local
