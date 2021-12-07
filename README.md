@@ -15,7 +15,7 @@ You can deploy the UI to a local (Minikube or Docker Desktop) cluster using a
 suitable set of parameters. An example file is present in the project root
 (`parameters.yaml`).
 
-You wil need: -
+You will need: -
 
 -   A local cluster ([Minikube] or [Docker Desktop])
 -   `kubectl` (known to work with `v1.22.4`)
