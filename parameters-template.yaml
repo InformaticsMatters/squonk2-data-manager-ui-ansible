@@ -1,14 +1,14 @@
 ---
+maui_kubeconfig: SetMe
+
 keycloak_server_url: SetMe
 
-maui_namespace: data-manager-ui
-maui_image_tag: docker-desktop
-maui_hostname: kubernetes.docker.internal
-maui_data_manager_api_address: kubernetes.docker.internal/data-manager-api
-maui_account_server_api_address: kubernetes.docker.internal/account-server-api
+maui_hostname: SetMe
+maui_data_manager_api_address: SetMe/data-manager-api
+maui_account_server_api_address: SetMe/account-server-api
+
 maui_keycloak_client_id: SetMe
 maui_keycloak_client_secret: SetMe
-maui_cpu_limit: 0
-maui_mem_limit: 0
 
-maui_kubeconfig: ~/k8s-config/config-local
+maui_namespace: data-manager-ui
+maui_image_tag: latest
