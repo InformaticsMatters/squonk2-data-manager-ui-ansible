@@ -19,6 +19,7 @@ maui_keycloak_client_secret: SetMe
 # You shouldn't need to change these...
 maui_namespace: data-manager-ui
 maui_image_tag: latest
+maui_disable_ssl_cert_check: yes
 
 # The KUBECONFIG reference.
 # Used outside of AWX to set kubernetes credentials.

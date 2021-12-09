@@ -16,3 +16,7 @@ data:
     KEYCLOAK_URL='{{ keycloak_server_url }}'
     AUTH0_CLIENT_ID='{{ maui_keycloak_client_id }}'
     AUTH0_CLIENT_SECRET='{{ maui_keycloak_client_secret }}'
+
+{% if maui_disable_ssl_cert_check %}
+    DANGEROUS__DISABLE_SSL_CERT_CHECK_IN_API_PROXY='1'
+{% endif %}

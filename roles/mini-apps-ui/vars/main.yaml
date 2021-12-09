@@ -7,6 +7,9 @@
 # The application Pod Security Policy (PSP)
 maui_sa_psp: im-core-unrestricted
 
+# Set to disable SSL certificate checks
+maui_disable_ssl_cert_check: no
+
 # Application CPU and Memory requests and limits.
 # Requests are required but limits are not.
 # Set limit to blank ('') or zero to avoid a limit.
