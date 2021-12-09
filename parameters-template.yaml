@@ -1,14 +1,17 @@
 ---
 
+# You shouldn't need to edit this file.
+# You can adjust the configuration using environment variables.
+
 # The URL for Keycloak
-# e.g. https://squonk.informaticsmatters.org/auth
-keycloak_server_url: SetMe
+keycloak_server_url: "https://{{ lookup('env', 'IM_DEV_AUTH_HOSTNAME') | default('squonk.informaticsmatters.org', True) }}/auth"
 
 # The hostname of the cluster,
 # Change this and the other addresses for your cluster.
-maui_hostname: kubernetes.docker.internal
-maui_data_manager_api_address: kubernetes.docker.internal/data-manager-api
-maui_account_server_api_address: kubernetes.docker.internal/account-server-api
+maui_hostname: "{{ lookup('env', 'IM_DEV_K8S_HOSTNAME') | default('kubernetes.docker.internal', True) }}"
+
+maui_data_manager_api_address: "{{ lookup('env', 'IM_DEV_K8S_HOSTNAME') | default('kubernetes.docker.internal', True) }}/data-manager-api"
+maui_account_server_api_address: "{{ lookup('env', 'IM_DEV_K8S_HOSTNAME') | default('kubernetes.docker.internal', True) }}/account-server-api"
 
 maui_keycloak_client_id: SetMe
 maui_keycloak_client_secret: SetMe
