@@ -1,14 +1,22 @@
 ---
-maui_kubeconfig: SetMe
 
+# The URL for Keycloak
+# e.g. https://squonk.informaticsmatters.org/auth
 keycloak_server_url: SetMe
 
-maui_hostname: SetMe
-maui_data_manager_api_address: SetMe/data-manager-api
-maui_account_server_api_address: SetMe/account-server-api
+# The hostname of the cluster,
+# Change this and the other addresses for your cluster.
+maui_hostname: kubernetes.docker.internal
+maui_data_manager_api_address: kubernetes.docker.internal/data-manager-api
+maui_account_server_api_address: kubernetes.docker.internal/account-server-api
 
 maui_keycloak_client_id: SetMe
 maui_keycloak_client_secret: SetMe
 
+# You shouldn't need to change these...
 maui_namespace: data-manager-ui
 maui_image_tag: latest
+
+# The KUBECONFIG reference.
+# Used outside of AWX to set kubernetes credentials.
+maui_kubeconfig: "{{ lookup('env', 'KUBECONFIG') }}"
