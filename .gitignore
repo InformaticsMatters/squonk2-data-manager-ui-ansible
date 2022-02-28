@@ -1,4 +1,5 @@
 .idea/
+venv/
 
 vault-pass.txt
 parameters.yaml
