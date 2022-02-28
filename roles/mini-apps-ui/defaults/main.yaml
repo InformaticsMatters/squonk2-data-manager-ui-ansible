@@ -17,6 +17,8 @@ maui_keycloak_client_secret: SetMe
 # The application auth0 secret.
 # Basically a 32-character heck string.
 maui_auth0_secret: "{{ lookup('password', '/dev/null length=32 chars=hexdigits') }}"
+# The sentry token, blank if not required.
+maui_sentry_auth_token: ''
 
 # Details of the application container image
 maui_image_name: informaticsmatters/mini-apps-data-tier-ui
