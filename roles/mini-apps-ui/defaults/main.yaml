@@ -11,7 +11,7 @@ maui_state: present
 maui_namespace: data-manager-ui
 
 # Realm
-maui_realm: squonk
+maui_keycloak_realm: squonk
 maui_keycloak_client_id: data-manager-ui
 maui_keycloak_client_secret: SetMe
 # The application auth0 secret.
