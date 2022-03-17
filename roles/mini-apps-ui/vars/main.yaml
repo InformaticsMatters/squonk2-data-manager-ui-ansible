@@ -18,6 +18,15 @@ maui_cpu_limit: 4
 maui_mem_request: 250Mi
 maui_mem_limit: 0
 
+# A fallback node-selector key.
+# Some deployments have other labels as selectors.
+# If they're not present the deployment should use this.
+maui_fallback_node_selector_key: informaticsmatters.com/purpose-application
+
+# Do we need to add kubernetes modules?
+# On some older AWX servers we do.
+maui_control_needs_kubernetes: no
+
 # General variables
 
 wait_timeout: 120

@@ -33,7 +33,7 @@ spec:
           - weight: 10
             preference:
               matchExpressions:
-              - key: informaticsmatters.com/purpose-application
+              - key: {{ maui_fallback_node_selector_key }}
                 operator: Exists
 
       containers:
