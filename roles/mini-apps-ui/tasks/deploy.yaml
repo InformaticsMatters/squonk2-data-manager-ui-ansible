@@ -1,5 +1,10 @@
 ---
 
+- name: Check key variables
+  assert:
+    that:
+    - keycloak_server_url|string|length > 0
+
 # Create the namespace and other basic materials
 
 - name: Create namespace ({{ maui_namespace }})
