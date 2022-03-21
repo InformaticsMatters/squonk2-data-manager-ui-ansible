@@ -50,6 +50,10 @@ maui_dockerhub_pullsecret: ''
 ## Provided by our chosen AWX/Tower Keycloak credentials
 # (keycloak credential type)...
 
+# The KEYCLOAK_SERVER_URL value injected by the AWX credential
+# has a 'https://` prefix and '/auth' suffix. So a host at
+# example.com will be injected as 'https://example.com/auth'.
+# The user can provide their own value directly if required.
 keycloak_server_url: "{{ lookup('env', 'KEYCLOAK_SERVER_URL') }}"
 
 # If set, use this kubernetes config, rather than K8S credentials.
