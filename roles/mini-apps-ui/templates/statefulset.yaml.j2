@@ -10,6 +10,7 @@ spec:
     matchLabels:
       name: mini-apps-ui
   serviceName: mini-apps-ui
+  replicas: {{ maui_replicas }}
   template:
     metadata:
       name: mini-apps-ui
