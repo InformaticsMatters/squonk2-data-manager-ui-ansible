@@ -21,7 +21,7 @@ maui_auth0_secret: "{{ lookup('password', '/dev/null length=32 chars=hexdigits')
 maui_sentry_auth_token: ''
 
 # Details of the application container image
-maui_image_name: informaticsmatters/mini-apps-data-tier-ui
+maui_image_name: informaticsmatters/squonk2-data-manager-ui
 maui_image_tag: 'latest'
 
 # The ingress hostname (http/https assumed) and path
