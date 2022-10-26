@@ -17,6 +17,9 @@ spec:
       labels:
         name: mini-apps-ui
     spec:
+{% if maui_priority_class %}
+      priorityClassName: {{ maui_priority_class }}
+{% endif %}
       serviceAccountName: mini-apps-ui
 
       # Try to avoid 'worker' nodes (lower weight),
