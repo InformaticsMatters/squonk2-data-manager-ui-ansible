@@ -6,3 +6,8 @@ warn_list:
 - '106'  # Role name {} does not match ``^[a-z][a-z0-9_]+$`` pattern
 - '207'  # Nested jinja pattern
 - fqcn-builtins
+- experimental  # all rules tagged as experimental
+- fqcn[action]  # Use FQCN for builtin actions.
+- key-order[task]  # Ensure specific order of keys in mappings.
+- name[missing]  # Rule for checking task and play names.
+- name[template]  # Rule for checking task and play names.
