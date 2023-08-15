@@ -13,6 +13,7 @@ metadata:
     # For a full set of nginx annotations see...
     # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
 spec:
+  ingressClassName: nginx
   tls:
   - hosts:
     - {{ maui_hostname }}
@@ -22,6 +23,9 @@ spec:
     http:
       paths:
       - path: /{{ maui_hostname_path }}
+        pathType: Prefix
         backend:
-          serviceName: mini-apps-ui
-          servicePort: http
+          service:
+            name: mini-apps-ui
+            port:
+              name: http
