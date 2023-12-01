@@ -1,0 +1,27 @@
+---
+
+# A set of parameters for local deployment (Rancher Desktop and the like).
+# You will need to define: -
+#
+# - IM_DEV_UI_CLIENT_SECRET
+#
+# This can also be tuned with some extra material via the following
+# environment variables: -
+#
+# - IM_DEV_UI_IMAGE_TAG
+# - IM_DEV_AUTH_HOSTNAME
+
+maui_kubeconfig: "{{ lookup('env', 'KUBECONFIG') }}"
+
+keycloak_server_url: "https://{{ lookup('env', 'IM_DEV_AUTH_HOSTNAME') | default('squonk.informaticsmatters.org', True) }}/auth"
+
+maui_hostname: squonk2
+maui_data_manager_api_address: squonk2/data-manager-api
+maui_account_server_api_address: squonk2/account-server-api
+
+maui_keycloak_client_id: data-manager-ui-local
+maui_keycloak_client_secret: "{{ lookup('env', 'IM_DEV_UI_CLIENT_SECRET') | default('SetMe', True) }}"
+
+maui_namespace: im-data-manager-ui
+maui_image_tag: "{{ lookup('env', 'IM_DEV_UI_IMAGE_TAG') | default('2.7.0', True)}}"
+maui_disable_ssl_cert_check: yes
