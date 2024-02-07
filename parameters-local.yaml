@@ -23,5 +23,5 @@ maui_keycloak_client_id: data-manager-ui-local
 maui_keycloak_client_secret: "{{ lookup('env', 'IM_DEV_UI_CLIENT_SECRET') | default('SetMe', True) }}"
 
 maui_namespace: im-data-manager-ui
-maui_image_tag: "{{ lookup('env', 'IM_DEV_UI_IMAGE_TAG') | default('2.7.0', True)}}"
+maui_image_tag: "{{ lookup('env', 'IM_DEV_UI_IMAGE_TAG') | default('2.10.0', True)}}"
 maui_disable_ssl_cert_check: yes
