@@ -12,6 +12,7 @@
     that:
     - k8s_auth_host|length > 0
     - k8s_auth_api_key|length > 0
+    msg: "Define KUBECONFIG or set 'k8s_auth_host' and 'k8s_auth_api_key'"
   when: maui_kubeconfig|string|length == 0
 
 # Go...
