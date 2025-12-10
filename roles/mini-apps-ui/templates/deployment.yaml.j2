@@ -1,16 +1,19 @@
 ---
-kind: StatefulSet
+kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: mini-apps-ui
   namespace: {{ maui_namespace }}
 spec:
-  revisionHistoryLimit: 10
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       name: mini-apps-ui
-  serviceName: mini-apps-ui
-  replicas: {{ maui_replicas }}
   template:
     metadata:
       name: mini-apps-ui
@@ -21,24 +24,6 @@ spec:
       priorityClassName: {{ maui_priority_class }}
 {% endif %}
       serviceAccountName: mini-apps-ui
-
-      # Try to avoid 'worker' nodes (lower weight),
-      # instead preferring 'application' nodes (higher weight)
-      # falling back on anything else (like 'core') if there's still not room.
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: informaticsmatters.com/purpose-worker
-                operator: Exists
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 10
-            preference:
-              matchExpressions:
-              - key: {{ maui_fallback_node_selector_key }}
-                operator: Exists
 
       containers:
       - name: mini-apps-ui
@@ -57,6 +42,10 @@ spec:
           name: config-ui
           subPath: .env.production
           readOnly: true
+        - mountPath: /app/motd.yaml
+          name: config-ui
+          subPath: motd.yaml
+          readOnly: true
         env:
         # CICD_TRIGGER_ID is variable whose value is used to force
         # a redeployment of the underlying containers. This is used in
@@ -66,22 +55,6 @@ spec:
         # a roll-out will not occur if the tag has not changed.
         - name: CICD_TRIGGER_ID
           value: '{{ ansible_date_time.iso8601_micro }}'
-#        readinessProbe:
-#          tcpSocket:
-#            port: 3000
-#          initialDelaySeconds: 5
-#          timeoutSeconds: 3
-#          periodSeconds: 10
-#          successThreshold: 1
-#          failureThreshold: 6
-#        livenessProbe:
-#          tcpSocket:
-#            port: 3000
-#          initialDelaySeconds: 5
-#          timeoutSeconds: 3
-#          periodSeconds: 10
-#          successThreshold: 1
-#          failureThreshold: 6
         resources:
           requests:
             cpu: {{ maui_cpu_request }}
