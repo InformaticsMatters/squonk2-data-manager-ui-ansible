@@ -44,6 +44,6 @@
     wait_timeout: "{{ pod_ready_timeout }}"
   loop:
   - configmap.yaml.j2
-  - statefulset.yaml.j2
+  - deployment.yaml.j2
   - service.yaml.j2
   - ingress.yaml.j2

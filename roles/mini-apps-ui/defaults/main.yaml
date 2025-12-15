@@ -10,6 +10,11 @@ maui_state: present
 # The namespace to create for application deployment.
 maui_namespace: data-manager-ui
 
+# Message of the day (YAML) - a list (possibly empty).
+# This gets injected into the UI Pod as the 'motd.yaml' file.
+maui_motd: |
+  motd: []
+
 # Realm
 maui_keycloak_realm: squonk
 maui_keycloak_client_id: data-manager-ui

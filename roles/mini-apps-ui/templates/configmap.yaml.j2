@@ -23,3 +23,5 @@ data:
 {% if maui_disable_ssl_cert_check %}
     DANGEROUS__DISABLE_SSL_CERT_CHECK_IN_API_PROXY='1'
 {% endif %}
+
+  motd.yaml: {{ maui_motd | to_yaml }}
