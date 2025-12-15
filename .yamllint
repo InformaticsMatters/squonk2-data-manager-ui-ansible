@@ -9,7 +9,7 @@ ignore: |
   .github/
   roles/mini-apps-ui/templates/configmap.yaml.j2
   roles/mini-apps-ui/templates/serviceaccount.yaml.j2
-  roles/mini-apps-ui/templates/statefulset.yaml.j2
+  roles/mini-apps-ui/templates/deployment.yaml.j2
 
 rules:
   indentation:
