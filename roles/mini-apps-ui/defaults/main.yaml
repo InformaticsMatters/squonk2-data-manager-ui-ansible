@@ -10,6 +10,15 @@ maui_state: present
 # The namespace to create for application deployment.
 maui_namespace: data-manager-ui
 
+# The 'installation' name. This is used to uniquely identify the UI for a
+# specific customer. It is used by the playbook to load customer-specific variables,
+# which are encoded in sensitive ('.vault') files that are located in the
+# role's 'vars' directory. Variables are loaded into an 'installation' root variable
+# so the variable 'replicas' will be available to the playbook as
+# 'installation.replicas'. To load the variables the user will also need to provide
+# the playbook with the vault password.
+maui_installation_name: SetMe
+
 # Message of the day (YAML) - a list (possibly empty).
 # This gets injected into the UI Pod as the 'motd.yaml' file.
 maui_motd: |
@@ -20,7 +29,7 @@ maui_keycloak_realm: squonk
 maui_keycloak_client_id: data-manager-ui
 maui_keycloak_client_secret: SetMe
 # The application auth0 secret.
-# Basically a 32-character heck string.
+# Basically a 32-character hex string.
 maui_auth0_secret: "{{ lookup('password', '/dev/null length=32 chars=hexdigits') }}"
 # The sentry token, blank if not required.
 maui_sentry_auth_token: ''

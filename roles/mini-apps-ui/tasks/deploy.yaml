@@ -1,7 +1,18 @@
 ---
 
+# Include sensitive (Ansible Vault) variables based on the installation name.
+# We include 'installation-local.vault' variables if the installation name is 'local'.
+# Any variables defined here will be available as 'installation.<variable>'.
+# The user will need to provide the vault password.
+
+- name: Include installation (vault) variables ({{ maui_installation_name }})
+  ansible.builtin.include_vars:
+    file: installation-{{ maui_installation_name }}.vault
+    name: installation
+  when: maui_installation_name | length > 0
+
 - name: Check key variables
-  assert:
+  ansible.builtin.assert:
     that:
     - keycloak_server_url|string|length > 0
 
@@ -27,13 +38,6 @@
     wait: yes
   loop:
   - serviceaccount.yaml.j2
-  - role.yaml.j2
-  - rolebinding-role-sa.yaml.j2
-
-- name: Relax ({{ maui_namespace }} 'default' service account (for cert-manager)
-  k8s:
-    definition: "{{ lookup('template', 'rolebinding-default-sa.yaml.j2') }}"
-    wait: yes
 
 # Deploy the application...
 

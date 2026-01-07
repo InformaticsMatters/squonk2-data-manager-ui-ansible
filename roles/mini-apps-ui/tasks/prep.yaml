@@ -4,14 +4,14 @@
 
 # Expose ansible version
 - name: Display Ansible version
-  debug:
+  ansible.builtin.debug:
     var: ansible_version.full
 
 # Basic pre-playbook prerequisites.
 # We need the openshift/kubernetes module amongst other things...
 
 - name: Install prerequisite Python modules
-  pip:
+  ansible.builtin.pip:
     name:
     - kubernetes==10.0.1
     - openshift==0.10.0
@@ -22,12 +22,12 @@
 # Expose all the installed Python modules...
 
 - name: Capture pip freeze
-  command: pip freeze
+  ansible.builtin.command: pip freeze
   register: freeze
   changed_when: false
 
 - name: Display pip freeze
-  debug:
+  ansible.builtin.debug:
     var: freeze.stdout_lines
 
 # Kubernetes credentials ------------------------------------------------------
@@ -37,6 +37,6 @@
 # expected environment variables so that we can assert they've been set.
 
 - name: Set initial authentication facts
-  set_fact:
+  ansible.builtin.set_fact:
     k8s_auth_host: "{{ lookup('env', 'K8S_AUTH_HOST') }}"
     k8s_auth_api_key: "{{ lookup('env', 'K8S_AUTH_API_KEY') }}"
