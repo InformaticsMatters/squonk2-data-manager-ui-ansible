@@ -8,19 +8,19 @@ keycloak_server_url: "https://{{ lookup('env', 'IM_DEV_AUTH_HOSTNAME') | default
 
 # The hostname of the cluster,
 # Change this and the other addresses for your cluster.
-maui_hostname: "{{ lookup('env', 'IM_DEV_K8S_HOSTNAME') | default('kubernetes.docker.internal', True) }}"
+ui_hostname: "{{ lookup('env', 'IM_DEV_K8S_HOSTNAME') | default('kubernetes.docker.internal', True) }}"
 
-maui_data_manager_api_address: "{{ lookup('env', 'IM_DEV_K8S_HOSTNAME') | default('kubernetes.docker.internal', True) }}/data-manager-api"
-maui_account_server_api_address: "{{ lookup('env', 'IM_DEV_K8S_HOSTNAME') | default('kubernetes.docker.internal', True) }}/account-server-api"
+ui_data_manager_api_address: "{{ lookup('env', 'IM_DEV_K8S_HOSTNAME') | default('kubernetes.docker.internal', True) }}/data-manager-api"
+ui_account_server_api_address: "{{ lookup('env', 'IM_DEV_K8S_HOSTNAME') | default('kubernetes.docker.internal', True) }}/account-server-api"
 
-maui_keycloak_client_id: SetMe
-maui_keycloak_client_secret: SetMe
+ui_keycloak_client_id: SetMe
+ui_keycloak_client_secret: SetMe
 
 # You shouldn't need to change these...
-maui_namespace: data-manager-ui
-maui_image_tag: latest
-maui_disable_ssl_cert_check: yes
+ui_namespace: data-manager-ui
+ui_image_tag: latest
+ui_disable_ssl_cert_check: yes
 
 # The KUBECONFIG reference.
 # Used outside of AWX to set kubernetes credentials.
-maui_kubeconfig: "{{ lookup('env', 'KUBECONFIG') }}"
+ui_kubeconfig: "{{ lookup('env', 'KUBECONFIG') }}"

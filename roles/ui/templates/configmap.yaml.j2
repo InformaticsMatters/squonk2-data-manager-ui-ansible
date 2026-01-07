@@ -1,0 +1,27 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ui
+  namespace: {{ ui_namespace }}
+data:
+  .env.production: |
+    BASE_URL='https://{{ ui_hostname }}'
+    BASE_PATH='/{{ ui_hostname_path }}'
+
+    DATA_MANAGER_API_SERVER='https://{{ ui_data_manager_api_address }}'
+    ACCOUNT_SERVER_API_SERVER='https://{{ ui_account_server_api_address }}'
+
+    AUTH0_SECRET='{{ ui_auth0_secret }}'
+    KEYCLOAK_URL='{{ keycloak_server_url }}/realms/{{ ui_keycloak_realm }}'
+    AUTH0_CLIENT_ID='{{ ui_keycloak_client_id }}'
+    AUTH0_CLIENT_SECRET='{{ installation.ui_keycloak_client_secret }}'
+
+{% if ui_sentry_auth_token %}
+    SENTRY_AUTH_TOKEN='{{ ui_sentry_auth_token }}'
+{% endif %}
+{% if ui_disable_ssl_cert_check %}
+    DANGEROUS__DISABLE_SSL_CERT_CHECK_IN_API_PROXY='1'
+{% endif %}
+
+  motd.yaml: {{ ui_motd | to_yaml }}

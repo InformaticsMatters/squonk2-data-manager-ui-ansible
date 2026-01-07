@@ -1,13 +1,24 @@
 ---
 
+# Include sensitive (Ansible Vault) variables based on the installation name.
+# We include 'installation-local.vault' variables if the installation name is 'local'.
+# Any variables defined here will be available as 'installation.<variable>'.
+# The user will need to provide the vault password.
+
+- name: Include installation (vault) variables ({{ ui_installation_name }})
+  ansible.builtin.include_vars:
+    file: installation-{{ ui_installation_name }}.vault
+    name: installation
+  when: ui_installation_name | length > 0
+
 - name: Check key variables
-  assert:
+  ansible.builtin.assert:
     that:
     - keycloak_server_url|string|length > 0
 
 # Create the namespace and other basic materials
 
-- name: Create namespace ({{ maui_namespace }})
+- name: Create namespace ({{ ui_namespace }})
   k8s:
     definition: "{{ lookup('template', 'namespace.yaml.j2') }}"
     wait: yes
@@ -17,9 +28,9 @@
     definition: "{{ lookup('template', 'secret-dh-imagepull.yaml.j2') }}"
     wait: yes
   vars:
-    pull_namespace: "{{ maui_namespace }}"
-    pull_secret: "{{ maui_dockerhub_pullsecret }}"
-  when: maui_dockerhub_pullsecret|string|length > 0
+    pull_namespace: "{{ ui_namespace }}"
+    pull_secret: "{{ ui_dockerhub_pullsecret }}"
+  when: ui_dockerhub_pullsecret|string|length > 0
 
 - name: Create namespace material
   k8s:
@@ -27,13 +38,6 @@
     wait: yes
   loop:
   - serviceaccount.yaml.j2
-  - role.yaml.j2
-  - rolebinding-role-sa.yaml.j2
-
-- name: Relax ({{ maui_namespace }} 'default' service account (for cert-manager)
-  k8s:
-    definition: "{{ lookup('template', 'rolebinding-default-sa.yaml.j2') }}"
-    wait: yes
 
 # Deploy the application...
 
