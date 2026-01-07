@@ -3,25 +3,25 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: ui
-  namespace: {{ maui_namespace }}
+  namespace: {{ ui_namespace }}
 data:
   .env.production: |
-    BASE_URL='https://{{ maui_hostname }}'
-    BASE_PATH='/{{ maui_hostname_path }}'
+    BASE_URL='https://{{ ui_hostname }}'
+    BASE_PATH='/{{ ui_hostname_path }}'
 
-    DATA_MANAGER_API_SERVER='https://{{ maui_data_manager_api_address }}'
-    ACCOUNT_SERVER_API_SERVER='https://{{ maui_account_server_api_address }}'
+    DATA_MANAGER_API_SERVER='https://{{ ui_data_manager_api_address }}'
+    ACCOUNT_SERVER_API_SERVER='https://{{ ui_account_server_api_address }}'
 
-    AUTH0_SECRET='{{ maui_auth0_secret }}'
-    KEYCLOAK_URL='{{ keycloak_server_url }}/realms/{{ maui_keycloak_realm }}'
-    AUTH0_CLIENT_ID='{{ maui_keycloak_client_id }}'
-    AUTH0_CLIENT_SECRET='{{ installation.maui_keycloak_client_secret }}'
+    AUTH0_SECRET='{{ ui_auth0_secret }}'
+    KEYCLOAK_URL='{{ keycloak_server_url }}/realms/{{ ui_keycloak_realm }}'
+    AUTH0_CLIENT_ID='{{ ui_keycloak_client_id }}'
+    AUTH0_CLIENT_SECRET='{{ installation.ui_keycloak_client_secret }}'
 
-{% if maui_sentry_auth_token %}
-    SENTRY_AUTH_TOKEN='{{ maui_sentry_auth_token }}'
+{% if ui_sentry_auth_token %}
+    SENTRY_AUTH_TOKEN='{{ ui_sentry_auth_token }}'
 {% endif %}
-{% if maui_disable_ssl_cert_check %}
+{% if ui_disable_ssl_cert_check %}
     DANGEROUS__DISABLE_SSL_CERT_CHECK_IN_API_PROXY='1'
 {% endif %}
 
-  motd.yaml: {{ maui_motd | to_yaml }}
+  motd.yaml: {{ ui_motd | to_yaml }}

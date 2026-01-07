@@ -3,7 +3,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: mini-apps-ui
-  namespace: {{ maui_namespace }}
+  namespace: {{ ui_namespace }}
 spec:
   replicas: 1
   strategy:
@@ -20,15 +20,15 @@ spec:
       labels:
         name: mini-apps-ui
     spec:
-{% if maui_priority_class %}
-      priorityClassName: {{ maui_priority_class }}
+{% if ui_priority_class %}
+      priorityClassName: {{ ui_priority_class }}
 {% endif %}
       serviceAccountName: mini-apps-ui
 
       containers:
       - name: mini-apps-ui
-        image: {{ maui_image_name }}:{{ maui_image_tag }}
-{% if maui_image_tag in ['latest', 'stable'] %}
+        image: {{ ui_image_name }}:{{ ui_image_tag }}
+{% if ui_image_tag in ['latest', 'stable'] %}
         imagePullPolicy: Always
 {% else %}
         imagePullPolicy: IfNotPresent
@@ -57,15 +57,15 @@ spec:
           value: '{{ ansible_date_time.iso8601_micro }}'
         resources:
           requests:
-            cpu: {{ maui_cpu_request }}
-            memory: {{ maui_mem_request }}
-{% if maui_cpu_limit or maui_mem_limit %}
+            cpu: {{ ui_cpu_request }}
+            memory: {{ ui_mem_request }}
+{% if ui_cpu_limit or ui_mem_limit %}
           limits:
-{% if maui_cpu_limit %}
-            cpu: {{ maui_cpu_limit }}
+{% if ui_cpu_limit %}
+            cpu: {{ ui_cpu_limit }}
 {% endif %}
-{% if maui_mem_limit %}
-            memory: {{ maui_mem_limit }}
+{% if ui_mem_limit %}
+            memory: {{ ui_mem_limit }}
 {% endif %}
 {% endif %}
 

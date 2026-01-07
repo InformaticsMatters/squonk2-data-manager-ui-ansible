@@ -14,16 +14,16 @@
     - k8s_auth_host|length > 0
     - k8s_auth_api_key|length > 0
     msg: "Define KUBECONFIG or set 'k8s_auth_host' and 'k8s_auth_api_key'"
-  when: maui_kubeconfig|string|length == 0
+  when: ui_kubeconfig|string|length == 0
 
 # The 'installation' must also be set.
 
 - name: Assert installation name is defined
   ansible.builtin.assert:
     that:
-    - maui_installation_name | string | length > 0
-    - maui_installation_name != 'SetMe'
-    msg: "You must define 'maui_installation_name'"
+    - ui_installation_name | string | length > 0
+    - ui_installation_name != 'SetMe'
+    msg: "You must define 'ui_installation_name'"
 
 # Go...
 
@@ -32,16 +32,16 @@
 
   - name: Deploy (API)
     ansible.builtin.include_tasks: deploy.yaml
-    when: maui_state|string == 'present'
+    when: ui_state|string == 'present'
   - name: Undeploy (API)
     ansible.builtin.include_tasks: undeploy.yaml
-    when: maui_state|string == 'absent'
+    when: ui_state|string == 'absent'
 
   module_defaults:
     group/k8s:
       host: "{{ k8s_auth_host }}"
       api_key: "{{ k8s_auth_api_key }}"
-  when: maui_kubeconfig|string|length == 0
+  when: ui_kubeconfig|string|length == 0
 
 # ...using a (local) kubernetes config file...
 
@@ -50,12 +50,12 @@
 
   - name: Deploy (KUBECONFIG)
     ansible.builtin.include_tasks: deploy.yaml
-    when: maui_state|string == 'present'
+    when: ui_state|string == 'present'
   - name: Undeploy (KUBECONFIG)
     ansible.builtin.include_tasks: undeploy.yaml
-    when: maui_state|string == 'absent'
+    when: ui_state|string == 'absent'
 
   module_defaults:
     group/k8s:
-      kubeconfig: "{{ maui_kubeconfig }}"
-  when: maui_kubeconfig|string|length != 0
+      kubeconfig: "{{ ui_kubeconfig }}"
+  when: ui_kubeconfig|string|length != 0

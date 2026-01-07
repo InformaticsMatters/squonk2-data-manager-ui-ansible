@@ -5,11 +5,11 @@
 # Any variables defined here will be available as 'installation.<variable>'.
 # The user will need to provide the vault password.
 
-- name: Include installation (vault) variables ({{ maui_installation_name }})
+- name: Include installation (vault) variables ({{ ui_installation_name }})
   ansible.builtin.include_vars:
-    file: installation-{{ maui_installation_name }}.vault
+    file: installation-{{ ui_installation_name }}.vault
     name: installation
-  when: maui_installation_name | length > 0
+  when: ui_installation_name | length > 0
 
 - name: Check key variables
   ansible.builtin.assert:
@@ -18,7 +18,7 @@
 
 # Create the namespace and other basic materials
 
-- name: Create namespace ({{ maui_namespace }})
+- name: Create namespace ({{ ui_namespace }})
   k8s:
     definition: "{{ lookup('template', 'namespace.yaml.j2') }}"
     wait: yes
@@ -28,9 +28,9 @@
     definition: "{{ lookup('template', 'secret-dh-imagepull.yaml.j2') }}"
     wait: yes
   vars:
-    pull_namespace: "{{ maui_namespace }}"
-    pull_secret: "{{ maui_dockerhub_pullsecret }}"
-  when: maui_dockerhub_pullsecret|string|length > 0
+    pull_namespace: "{{ ui_namespace }}"
+    pull_secret: "{{ ui_dockerhub_pullsecret }}"
+  when: ui_dockerhub_pullsecret|string|length > 0
 
 - name: Create namespace material
   k8s:
