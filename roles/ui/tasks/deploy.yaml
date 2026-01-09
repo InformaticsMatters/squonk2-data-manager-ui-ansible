@@ -1,14 +1,14 @@
 ---
 
 # Include sensitive (Ansible Vault) variables based on the installation name.
-# We include 'installation-local.vault' variables if the installation name is 'local'.
-# Any variables defined here will be available as 'installation.<variable>'.
+# We include 'sensitive-local.vault' variables if the installation name is 'local'.
+# Any variables defined here will be available as 'sensitive.<variable>'.
 # The user will need to provide the vault password.
 
-- name: Include installation (vault) variables ({{ ui_installation_name }})
+- name: Include sensitive (vault) variables ({{ ui_installation_name }})
   ansible.builtin.include_vars:
-    file: installation-{{ ui_installation_name }}.vault
-    name: installation
+    file: sensitive-{{ ui_installation_name }}.vault
+    name: sensitive
   when: ui_installation_name | length > 0
 
 - name: Check key variables
