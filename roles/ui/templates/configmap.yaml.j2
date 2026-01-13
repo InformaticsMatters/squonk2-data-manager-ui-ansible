@@ -15,7 +15,7 @@ data:
     AUTH0_SECRET='{{ ui_auth0_secret }}'
     KEYCLOAK_URL='{{ keycloak_server_url }}/realms/{{ ui_keycloak_realm }}'
     AUTH0_CLIENT_ID='{{ ui_keycloak_client_id }}'
-    AUTH0_CLIENT_SECRET='{{ installation.ui_keycloak_client_secret }}'
+    AUTH0_CLIENT_SECRET='{{ sensitive.ui_keycloak_client_secret }}'
 
 {% if ui_sentry_auth_token %}
     SENTRY_AUTH_TOKEN='{{ ui_sentry_auth_token }}'
