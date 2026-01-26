@@ -2,19 +2,17 @@
 
 # Include sensitive (Ansible Vault) variables based on the installation name.
 # We include 'sensitive-local.vault' variables if the installation name is 'local'.
-# Any variables defined here will be available as 'sensitive.<variable>'.
 # The user will need to provide the vault password.
 
 - name: Include sensitive (vault) variables ({{ ui_installation_name }})
   ansible.builtin.include_vars:
     file: sensitive-{{ ui_installation_name }}.vault
-    name: sensitive
   when: ui_installation_name | length > 0
 
 - name: Check key variables
   ansible.builtin.assert:
     that:
-    - keycloak_server_url|string|length > 0
+    - keycloak_server_url | string | length > 0
 
 # Create the namespace and other basic materials
 
@@ -30,7 +28,7 @@
   vars:
     pull_namespace: "{{ ui_namespace }}"
     pull_secret: "{{ ui_dockerhub_pullsecret }}"
-  when: ui_dockerhub_pullsecret|string|length > 0
+  when: ui_dockerhub_pullsecret | string | length > 0
 
 - name: Create namespace material
   k8s:
