@@ -2,7 +2,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: mini-apps-ui
+  name: data-manager-ui
   namespace: {{ ui_namespace }}
 spec:
   replicas: 1
@@ -13,20 +13,20 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      name: mini-apps-ui
+      name: data-manager-ui
   template:
     metadata:
-      name: mini-apps-ui
+      name: data-manager-ui
       labels:
-        name: mini-apps-ui
+        name: data-manager-ui
     spec:
 {% if ui_priority_class %}
       priorityClassName: {{ ui_priority_class }}
 {% endif %}
-      serviceAccountName: mini-apps-ui
+      serviceAccountName: data-manager-ui
 
       containers:
-      - name: mini-apps-ui
+      - name: data-manager-ui
         image: {{ ui_image_name }}:{{ ui_image_tag }}
 {% if ui_image_tag in ['latest', 'stable'] %}
         imagePullPolicy: Always
@@ -72,4 +72,4 @@ spec:
       volumes:
       - name: config-ui
         configMap:
-          name: ui
+          name: data-manager-ui
