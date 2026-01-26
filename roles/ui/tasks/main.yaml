@@ -14,6 +14,15 @@
     - ui_installation_name != 'SetMe'
     msg: "You must define 'ui_installation_name'"
 
+# Include sensitive (Ansible Vault) variables based on the installation name.
+# We include 'sensitive-local.vault' variables if the installation name is 'local'.
+# The user will need to provide the vault password.
+
+- name: Include sensitive (vault) variables ({{ ui_installation_name }})
+  ansible.builtin.include_vars:
+    file: sensitive-{{ ui_installation_name }}.vault
+  when: ui_installation_name | length > 0
+
 # Go...
 
 - name: Deploy via Host and API
