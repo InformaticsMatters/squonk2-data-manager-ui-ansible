@@ -8,7 +8,7 @@
 ui_state: present
 
 # The namespace to create for application deployment.
-ui_namespace: data-manager-ui
+ui_namespace: im-data-manager-ui
 
 # The 'installation' name. This is used to uniquely identify the UI for a
 # specific customer. It is used by the playbook to load customer-specific variables,
