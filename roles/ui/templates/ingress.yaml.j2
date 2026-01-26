@@ -2,7 +2,7 @@
 kind: Ingress
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: mini-apps-ui
+  name: data-manager-ui
   namespace: {{ ui_namespace }}
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-nginx-{{ ui_cert_issuer|lower }}"
@@ -16,7 +16,7 @@ spec:
   tls:
   - hosts:
     - {{ ui_hostname }}
-    secretName: mini-apps-ui-tls
+    secretName: data-manager-ui-tls
   rules:
   - host: {{ ui_hostname }}
     http:
@@ -25,6 +25,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: mini-apps-ui
+            name: data-manager-ui
             port:
               name: http
