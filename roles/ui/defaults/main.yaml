@@ -28,8 +28,11 @@ ui_motd: |
 ui_keycloak_realm: squonk
 ui_keycloak_client_id: data-manager-ui
 ui_keycloak_client_secret: SetMe
-# The application auth0 secret.
+# The application session secret (written as BETTER_AUTH_SECRET).
 # Basically a 32-character hex string.
+# Sessions are stateless cookies signed with this, so the generated default
+# below rotates on every playbook run and signs every user out. Set it in the
+# installation's vault to keep sessions across deployments.
 ui_auth0_secret: "{{ lookup('password', '/dev/null length=32 chars=hexdigits') }}"
 # The sentry token, blank if not required.
 ui_sentry_auth_token: ''
