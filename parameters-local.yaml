@@ -30,7 +30,7 @@ ui_keycloak_client_id: data-manager-ui-local
 ui_keycloak_client_secret: "{{ lookup('env', 'IM_DEV_UI_CLIENT_SECRET') | default('SetMe', True) }}"
 
 ui_namespace: im-data-manager-ui
-ui_image_tag: "{{ lookup('env', 'IM_DEV_UI_IMAGE_TAG') | default('5.4.0', True)}}"
+ui_image_tag: "{{ lookup('env', 'IM_DEV_UI_IMAGE_TAG') | default('7.0.0', True)}}"
 ui_disable_ssl_cert_check: yes
 
 ui_priority_class: im-application-high
