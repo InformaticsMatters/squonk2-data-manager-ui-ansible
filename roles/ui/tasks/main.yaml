@@ -28,9 +28,12 @@
 - name: Deploy via Host and API
   module_defaults:
     group/k8s:
-      host: "{{ k8s_auth_host }}"
-      api_key: "{{ k8s_auth_api_key }}"
-      kubeconfig: "{{ ui_kubeconfig }}"
+      # Empty values must be omitted. An empty 'host' (or 'api_key')
+      # is not ignored by the k8s modules, it replaces the value loaded
+      # from the kubeconfig file.
+      host: "{{ k8s_auth_host | default(omit, true) }}"
+      api_key: "{{ k8s_auth_api_key | default(omit, true) }}"
+      kubeconfig: "{{ ui_kubeconfig | default(omit, true) }}"
   block:
 
   - name: Deploy (API)
